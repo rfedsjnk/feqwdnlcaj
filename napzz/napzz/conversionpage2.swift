@@ -11,12 +11,28 @@ import SwiftUI
 struct ConversionPage2: View {
     @State private var showNextPage = false
     @State private var animateContent = false
+    @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
         NavigationStack {
             ZStack {
                 Color.black.ignoresSafeArea()
                 VStack(spacing: 0) {
+                    // Header with back button
+                    HStack {
+                        Button(action: {
+                            presentationMode.wrappedValue.dismiss()
+                        }) {
+                            Image(systemName: "chevron.left")
+                                .font(.title2)
+                                .foregroundColor(.white)
+                        }
+                        .padding(.leading, 20)
+                        
+                        Spacer()
+                    }
+                    .padding(.top, 10)
+                    
                     VStack(spacing: 24) {
                     Image(systemName: "moon.stars.fill")
                         .resizable()
@@ -60,6 +76,7 @@ struct ConversionPage2: View {
             .navigationDestination(isPresented: $showNextPage) {
                 ConversionPage3()
             }
+            .navigationBarHidden(true)
         }
         .onAppear {
             withAnimation {

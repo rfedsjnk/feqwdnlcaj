@@ -11,6 +11,7 @@ import SwiftUI
 struct ConversionPage4: View {
     @State private var animateContent = false
     @State private var navigateToNext = false
+    @Environment(\.presentationMode) var presentationMode
     
     let options: [(String, String)] = [
         ("🤔", "I don't know"),
@@ -23,6 +24,21 @@ struct ConversionPage4: View {
         ZStack {
             Color.black.ignoresSafeArea()
             VStack(spacing: 0) {
+                // Header with back button
+                HStack {
+                    Button(action: {
+                        presentationMode.wrappedValue.dismiss()
+                    }) {
+                        Image(systemName: "chevron.left")
+                            .font(.title2)
+                            .foregroundColor(.white)
+                    }
+                    .padding(.leading, 20)
+                    
+                    Spacer()
+                }
+                .padding(.top, 10)
+                
                 VStack(spacing: 24) {
                 // Robot image (replace with your asset if you have one)
                 Image(systemName: "face.smiling")

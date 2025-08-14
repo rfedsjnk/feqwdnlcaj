@@ -11,6 +11,7 @@ import SwiftUI
 struct ConversionPage3: View {
     @State private var showNextPage = false
     @State private var animateContent = false
+    @Environment(\.presentationMode) var presentationMode
     
     let options = [
         "Less than 10 minutes",
@@ -23,6 +24,21 @@ struct ConversionPage3: View {
         ZStack {
             Color.black.ignoresSafeArea()
             VStack(spacing: 0) {
+                // Header with back button
+                HStack {
+                    Button(action: {
+                        presentationMode.wrappedValue.dismiss()
+                    }) {
+                        Image(systemName: "chevron.left")
+                            .font(.title2)
+                            .foregroundColor(.white)
+                    }
+                    .padding(.leading, 20)
+                    
+                    Spacer()
+                }
+                .padding(.top, 10)
+                
                 VStack(spacing: 24) {
                 Image(systemName: "bed.double.fill")
                     .resizable()
@@ -65,6 +81,7 @@ struct ConversionPage3: View {
         .navigationDestination(isPresented: $showNextPage) {
             ConversionPage4()
         }
+        .navigationBarHidden(true)
         .onAppear {
             withAnimation {
                 animateContent = true

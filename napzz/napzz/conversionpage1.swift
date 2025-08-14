@@ -68,6 +68,7 @@ struct ConversionPage1: View {
                     ConversionPage2()
                 }
             }
+            .navigationBarHidden(true)
         }
         .onAppear {
             withAnimation {
