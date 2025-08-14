@@ -13,6 +13,7 @@ struct ConversionPage7: View {
     @State private var animateStars = false
     @State private var navigateToSleepPosition = false
     @State private var animateContent = false
+    @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
         NavigationView {
@@ -42,6 +43,21 @@ struct ConversionPage7: View {
                 }
                 
                 VStack(spacing: 20) {
+                    // Header with back button
+                    HStack {
+                        Button(action: {
+                            presentationMode.wrappedValue.dismiss()
+                        }) {
+                            Image(systemName: "chevron.left")
+                                .font(.title2)
+                                .foregroundColor(.white)
+                        }
+                        .padding(.leading, 20)
+                        
+                        Spacer()
+                    }
+                    .padding(.top, 10)
+                    
                     // Robot with heart eyes
                     VStack {
                         Image(systemName: "heart.fill")
@@ -194,16 +210,18 @@ struct ConversionPage7: View {
                 ConversionProgressBar(currentStep: 7)
             }
             .navigationBarHidden(true)
-            .onAppear {
+        }
+        .onAppear {
+            withAnimation {
                 animateContent = true
-                animateStars = true
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    animateChart = true
-                }
             }
-            .onDisappear {
-                animateContent = false
+            animateStars = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                animateChart = true
             }
+        }
+        .onDisappear {
+            animateContent = false
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }

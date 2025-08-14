@@ -41,6 +41,7 @@ struct conversionpage9: View {
     @State private var animateOptions = false
     @State private var navigateToNext = false
     @State private var animateContent = false
+    @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
         ZStack {
@@ -52,7 +53,7 @@ struct conversionpage9: View {
                 // Header with back button and robot
                 HStack {
                     Button(action: {
-                        // Handle back navigation
+                        presentationMode.wrappedValue.dismiss()
                     }) {
                         Image(systemName: "chevron.left")
                             .font(.title2)
@@ -62,6 +63,7 @@ struct conversionpage9: View {
                     
                     Spacer()
                 }
+                .padding(.top, 10)
                 
                 // Robot icon
                 ZStack {
@@ -124,11 +126,12 @@ struct conversionpage9: View {
                 
                 Spacer()
                 
-                ConversionProgressBar(currentStep: 9)
             }
             .opacity(animateContent ? 1.0 : 0.0)
             .scaleEffect(animateContent ? 1.0 : 0.95)
             .animation(.easeOut(duration: 0.8), value: animateContent)
+            
+            ConversionProgressBar(currentStep: 9)
             
             // Navigation link (invisible)
             NavigationLink(

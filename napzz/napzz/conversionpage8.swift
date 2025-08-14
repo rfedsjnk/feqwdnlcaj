@@ -15,6 +15,7 @@ struct conversionpage8: View {
     @State private var animateOptions = false
     @State private var navigateToNext = false
     @State private var animateContent = false
+    @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
         NavigationView {
@@ -27,7 +28,7 @@ struct conversionpage8: View {
                     // Header with back button and robot
                     HStack {
                         Button(action: {
-                            // Handle back navigation
+                            presentationMode.wrappedValue.dismiss()
                         }) {
                             Image(systemName: "chevron.left")
                                 .font(.title2)
@@ -37,6 +38,7 @@ struct conversionpage8: View {
                         
                         Spacer()
                     }
+                    .padding(.top, 10)
                     
                     // Robot icon
                     ZStack {
@@ -99,11 +101,12 @@ struct conversionpage8: View {
                     
                     Spacer()
                     
-                    ConversionProgressBar(currentStep: 8)
                 }
                 .opacity(animateContent ? 1.0 : 0.0)
                 .scaleEffect(animateContent ? 1.0 : 0.95)
                 .animation(.easeOut(duration: 0.8), value: animateContent)
+                
+                ConversionProgressBar(currentStep: 8)
                 
                 // Navigation link (invisible)
                 NavigationLink(
@@ -116,13 +119,13 @@ struct conversionpage8: View {
             .navigationBarHidden(true)
             .onAppear {
                 withAnimation {
+                    animateContent = true
                     animateOptions = true
-                animateContent = true
                 }
             }
-        }
-        .onDisappear {
-            animateContent = false
+            .onDisappear {
+                animateContent = false
+            }
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }

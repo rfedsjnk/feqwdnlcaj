@@ -140,7 +140,9 @@ struct conversionpage13: View {
         .animation(.easeOut(duration: 0.8), value: animateContent)
         .navigationBarHidden(true)
         .onAppear {
-            animateContent = true
+            withAnimation {
+                animateContent = true
+            }
             startAnimations()
         }
         .onDisappear {

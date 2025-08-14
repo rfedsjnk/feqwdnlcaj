@@ -41,6 +41,21 @@ struct ConversionPage15: View {
             .ignoresSafeArea()
             
             VStack(spacing: 0) {
+                // Header with back button
+                HStack {
+                    Button(action: {
+                        presentationMode.wrappedValue.dismiss()
+                    }) {
+                        Image(systemName: "chevron.left")
+                            .font(.title2)
+                            .foregroundColor(.white)
+                    }
+                    .padding(.leading, 20)
+                    
+                    Spacer()
+                }
+                .padding(.top, 10)
+                
                 // Header
                 VStack(spacing: 8) {
                     Text("Best Sound Machine")
@@ -190,13 +205,17 @@ struct ConversionPage15: View {
             .hidden()
         }
         
+        .opacity(animateContent ? 1.0 : 0.0)
+        .scaleEffect(animateContent ? 1.0 : 0.95)
+        .animation(.easeOut(duration: 0.8), value: animateContent)
+        
         ConversionProgressBar(currentStep: 15)
         .navigationBarHidden(true)
         .onAppear {
             withAnimation {
                 animateContent = true
-                animateCards = true
             }
+            animateCards = true
         }
         .onDisappear {
             animateContent = false

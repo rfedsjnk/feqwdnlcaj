@@ -122,8 +122,8 @@ struct conversionpage11: View {
         .onAppear {
             withAnimation {
                 animateContent = true
-                animateOptions = true
             }
+            animateOptions = true
         }
         .onDisappear {
             animateContent = false
